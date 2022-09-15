@@ -1,21 +1,42 @@
 package com.example.course.entities;
 
 
+import net.bytebuddy.matcher.FilterableList;
+import net.bytebuddy.matcher.FilterableList.Empty;
+import org.aspectj.weaver.ast.Or;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class User implements Serializable {
+@Entity
+public class UserEntity implements Serializable {
     private static final long serialVersionUID =  1L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private String email;
     private String phone;
     private String password;
 
-    public User(){}
+    public List<Order> getOrders() {
+        return orders;
+    }
 
-    public User(Long id, String name, String email, String phone, String password) {
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
+
+    public UserEntity(){}
+
+    public UserEntity(Long id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -66,8 +87,8 @@ public class User implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
+        if (!(o instanceof UserEntity)) return false;
+        UserEntity user = (UserEntity) o;
         return Objects.equals(getId(), user.getId());
     }
 
