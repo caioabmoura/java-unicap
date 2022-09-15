@@ -1,6 +1,7 @@
 package com.example.course.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.matcher.FilterableList;
 import net.bytebuddy.matcher.FilterableList.Empty;
 import org.aspectj.weaver.ast.Or;
@@ -30,7 +31,7 @@ public class UserEntity implements Serializable {
     public List<Order> getOrders() {
         return orders;
     }
-
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 

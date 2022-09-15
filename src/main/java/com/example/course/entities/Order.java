@@ -43,6 +43,7 @@ public class Order implements Serializable {
         this.moment = moment;
         this.client = client;
     }
+    public Order(){}
 
     public Instant getMoment() {
         return moment;
