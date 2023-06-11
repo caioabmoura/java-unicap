@@ -17,7 +17,7 @@ public class TherapistService {
     TherapistRepository therapistRepository;
 
     public Therapist create(Therapist therapist) {
-        Therapist t = new Therapist(therapist.getId(), therapist.getName(), therapist.getEmail(), therapist.getPhone());
+        Therapist t = new Therapist(therapist.getId(), therapist.getName(), therapist.getEmail(), therapist.getPhone(),therapist.getAbout());
         this.therapistRepository.saveAll(Arrays.asList(t));
         return t;
     }

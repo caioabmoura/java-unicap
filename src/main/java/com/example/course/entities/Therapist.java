@@ -20,15 +20,17 @@ public class Therapist implements Serializable {
     private String name;
     private String email;
     private String phone;
+    private String about;
 
     @JsonIgnore
     @OneToOne(mappedBy = "therapist")
     private UserEntity userEntity;
-    public Therapist(Long id, String name, String email, String phone){
+    public Therapist(Long id, String name, String email, String phone,String about){
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.about = about;
     }
     public Therapist(){}
 }
