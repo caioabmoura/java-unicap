@@ -7,11 +7,7 @@ import net.bytebuddy.matcher.FilterableList;
 import net.bytebuddy.matcher.FilterableList.Empty;
 import org.aspectj.weaver.ast.Or;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +26,10 @@ public class UserEntity implements Serializable {
     private String phone;
     private String password;
 
+    @OneToOne
+    @JoinColumn(name = "therapist_id", referencedColumnName = "id")
+    @JsonIgnore
+    private Therapist therapist;
 
     public UserEntity(){}
 

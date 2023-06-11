@@ -15,6 +15,7 @@ import java.util.List;
 public class UserResource {
     @Autowired
     private UserService service;
+
     @GetMapping
     public ResponseEntity<List<UserEntity>> findAll() {
         List<UserEntity> list = this.service.findAll();
@@ -22,18 +23,19 @@ public class UserResource {
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserEntity> findById(@PathVariable Long id){
+    public ResponseEntity<UserEntity> findById(@PathVariable Long id) {
         UserEntity user = service.findById(id);
         return ResponseEntity.ok().body(user);
     }
 
     @PostMapping
-    public ResponseEntity<UserEntity> create(@RequestBody UserEntity user){
+    public ResponseEntity<UserEntity> create(@RequestBody UserEntity user) {
         UserEntity userEntity = this.service.create(user);
         return ResponseEntity.ok().body(userEntity);
     }
+
     @PostMapping(value = "/login")
-    public ResponseEntity<LoginResponseEntity> create(@RequestBody LoginRequestEntity loginRequestEntity){
+    public ResponseEntity<LoginResponseEntity> create(@RequestBody LoginRequestEntity loginRequestEntity) {
         LoginResponseEntity userId = this.service.login(loginRequestEntity);
         return ResponseEntity.ok().body(userId);
     }
