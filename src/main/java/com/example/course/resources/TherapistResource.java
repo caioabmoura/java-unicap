@@ -1,13 +1,13 @@
 package com.example.course.resources;
 
 import com.example.course.entities.Therapist;
+import com.example.course.entities.UserEntity;
 import com.example.course.services.TherapistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/therapist")
@@ -20,6 +20,18 @@ public class TherapistResource {
     private ResponseEntity<Therapist> create(@RequestBody Therapist therapist) {
         Therapist t = this.therapistService.create(therapist);
         return ResponseEntity.ok().body(t);
+    }
+
+    @GetMapping
+    private ResponseEntity<List<Therapist>> getTherapists() {
+        List<Therapist> t = this.therapistService.getAll();
+        return ResponseEntity.ok().body(t);
+    }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Therapist> findById(@PathVariable Long id) {
+        Therapist therapist = this.therapistService.findById(id);
+        return ResponseEntity.ok().body(therapist);
     }
 
 }

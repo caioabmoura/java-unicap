@@ -2,9 +2,10 @@ package com.example.course.services;
 
 import com.example.course.entities.LoginRequestEntity;
 import com.example.course.entities.LoginResponseEntity;
+import com.example.course.entities.Therapist;
 import com.example.course.entities.UserEntity;
+import com.example.course.repositories.TherapistRepository;
 import com.example.course.repositories.UserRepository;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +18,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private TherapistRepository therapistRepository;
     public List<UserEntity> findAll(){
         return userRepository.findAll();
     }
@@ -48,5 +51,12 @@ public class UserService {
 
     private boolean checkPassword(String entityPassword, String loginPassword) {
         return entityPassword.equals(loginPassword);
+    }
+
+    public UserEntity therapy(Long id, Long therapistId) {
+        UserEntity user = this.userRepository.getReferenceById(id);
+        Therapist therapist = this.therapistRepository.findById(therapistId).get();
+        UserEntity newUser = new UserEntity(user.getId(),user.getName(),user.getEmail(),user.getPhone(),user.getPassword(),therapist);
+        return newUser;
     }
 }

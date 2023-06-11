@@ -28,7 +28,6 @@ public class UserEntity implements Serializable {
 
     @OneToOne
     @JoinColumn(name = "therapist_id", referencedColumnName = "id")
-    @JsonIgnore
     private Therapist therapist;
 
     public UserEntity(){}
@@ -39,6 +38,15 @@ public class UserEntity implements Serializable {
         this.email = email;
         this.phone = phone;
         this.password = password;
+    }
+
+    public UserEntity(Long id, String name, String email, String phone, String password,Therapist therapist) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.therapist = therapist;
     }
 
 }

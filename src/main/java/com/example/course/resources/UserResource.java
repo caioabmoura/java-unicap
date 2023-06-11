@@ -39,4 +39,10 @@ public class UserResource {
         LoginResponseEntity userId = this.service.login(loginRequestEntity);
         return ResponseEntity.ok().body(userId);
     }
+
+    @GetMapping(value = "/therapy/{user_id}")
+    public ResponseEntity<UserEntity> therapy(@PathVariable(value = "user_id") Long userId,@RequestParam(value = "t_id") Long therapistId) {
+        UserEntity user = this.service.therapy(userId,therapistId);
+        return ResponseEntity.ok().body(user);
+    }
 }

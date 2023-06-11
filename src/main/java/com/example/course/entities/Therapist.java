@@ -1,5 +1,6 @@
 package com.example.course.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -20,7 +21,8 @@ public class Therapist implements Serializable {
     private String email;
     private String phone;
 
-    @OneToOne
+    @JsonIgnore
+    @OneToOne(mappedBy = "therapist")
     private UserEntity userEntity;
     public Therapist(Long id, String name, String email, String phone){
         this.id = id;
@@ -28,4 +30,5 @@ public class Therapist implements Serializable {
         this.email = email;
         this.phone = phone;
     }
+    public Therapist(){}
 }
