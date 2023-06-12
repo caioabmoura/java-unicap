@@ -30,4 +30,42 @@ public class TherapistService {
         Optional<Therapist> therapist = this.therapistRepository.findById(id);
         return therapist.get();
     }
+
+    public void delete(Long id) {
+        Therapist therapist = this.therapistRepository.findById(id).get();
+
+        this.therapistRepository.delete(therapist);
+    }
+
+    public Therapist update(Long id, Therapist therapistUpdateEntity) {
+        Optional<Therapist> therapist = this.therapistRepository.findById(id);
+
+
+        if(therapist.isEmpty()){
+            return null;
+        }
+        Therapist therapistFound = therapist.get();
+        if(therapistUpdateEntity.getName() != null){
+            if (!therapistUpdateEntity.getName().isBlank()){
+                therapistFound.setName(therapistUpdateEntity.getName());
+            }
+        }
+        if(therapistUpdateEntity.getAbout() != null){
+            if (!therapistUpdateEntity.getAbout().isBlank()){
+                therapistFound.setAbout(therapistUpdateEntity.getAbout());
+            }
+        }
+        if(therapistUpdateEntity.getEmail() != null){
+            if (!therapistUpdateEntity.getEmail().isBlank()){
+                therapistFound.setEmail(therapistUpdateEntity.getEmail());
+            }
+        }
+        if(therapistUpdateEntity.getPhone() != null){
+            if (!therapistUpdateEntity.getPhone().isBlank()){
+                therapistFound.setPhone(therapistUpdateEntity.getPhone());
+            }
+        }
+        this.therapistRepository.save(therapistFound);
+        return therapistFound;
+    }
 }

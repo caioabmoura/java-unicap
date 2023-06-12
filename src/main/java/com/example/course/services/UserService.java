@@ -59,4 +59,42 @@ public class UserService {
         UserEntity newUser = new UserEntity(user.getId(),user.getName(),user.getEmail(),user.getPhone(),user.getPassword(),therapist);
         return newUser;
     }
+
+    public UserEntity update(Long id, UserEntity updateRequestEntity) {
+
+        Optional<UserEntity> user = this.userRepository.findById(id);
+
+        if(user.isEmpty()){
+            return null;
+        }
+        UserEntity userFound = user.get();
+        if(updateRequestEntity.getName() != null){
+            if (!updateRequestEntity.getName().isBlank()){
+                userFound.setName(updateRequestEntity.getName());
+            }
+        }
+        if(updateRequestEntity.getPassword() != null){
+            if (!updateRequestEntity.getPassword().isBlank()){
+                userFound.setPassword(updateRequestEntity.getPassword());
+            }
+        }
+        if(updateRequestEntity.getEmail() != null){
+            if (!updateRequestEntity.getEmail().isBlank()){
+                userFound.setEmail(updateRequestEntity.getEmail());
+            }
+        }
+        if(updateRequestEntity.getPhone() != null){
+            if (!updateRequestEntity.getPhone().isBlank()){
+                userFound.setPhone(updateRequestEntity.getPhone());
+            }
+        }
+        this.userRepository.save(userFound);
+        return userFound;
+    }
+
+    public void delete(Long id) {
+        UserEntity user = this.userRepository.findById(id).get();
+
+        this.userRepository.delete(user);
+    }
 }

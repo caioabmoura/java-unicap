@@ -4,7 +4,9 @@ import com.example.course.entities.LoginRequestEntity;
 import com.example.course.entities.LoginResponseEntity;
 import com.example.course.entities.UserEntity;
 import com.example.course.services.UserService;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,4 +47,17 @@ public class UserResource {
         UserEntity user = this.service.therapy(userId,therapistId);
         return ResponseEntity.ok().body(user);
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<UserEntity> update(@PathVariable Long id,@RequestBody UserEntity userEntity){
+        UserEntity user = this.service.update(id, userEntity);
+        return ResponseEntity.ok().body(user);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        this.service.delete(id);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }
